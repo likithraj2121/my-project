@@ -57,14 +57,14 @@ Team member cards
 
 ### 5. Get Started in 3 Steps
 Step-by-step process:
-1. **Join the Community** - Discord/WhatsApp onboarding
+1. **Join the Community** - WhatsApp Community onboarding
 2. **Attend a Workshop** - Beginner-friendly sessions
 3. **Build a Project** - Real portfolio development
 
 ### 6. Contact Section
 - **Contact Form** - Name, email, message fields with validation
 - **Contact Information** - Email and location details
-- **Social Links** - Instagram, Twitter, LinkedIn, Discord buttons
+- **Social Links** - Instagram, Twitter, LinkedIn, WhatsApp Community buttons
 
 ## Design Features
 

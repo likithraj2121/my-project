@@ -592,7 +592,7 @@ const TeamPage: React.FC = () => {
                     <Card 
                       variant="glass" 
                       hover 
-                      className="p-6 h-full flex flex-col cursor-pointer"
+                      className="group p-6 h-full flex flex-col cursor-pointer"
                       onClick={() => setSelectedMember(member)}
                     >
                       {/* Avatar and Department */}
@@ -600,8 +600,8 @@ const TeamPage: React.FC = () => {
                         <div className={`w-16 h-16 ${member.color} rounded-full flex items-center justify-center`}>
                           <span className="text-xl font-bold text-white">{member.avatar}</span>
                         </div>
-                        <div className="text-neutral-400">
-                          <DeptIcon className="h-5 w-5" />
+                        <div className="text-neutral-500">
+                          <DeptIcon className="h-5 w-5 transition-colors duration-200 group-hover:text-neutral-400" />
                         </div>
                       </div>
 
@@ -616,7 +616,7 @@ const TeamPage: React.FC = () => {
                         {/* Top Skills */}
                         <div className="flex flex-wrap gap-1 mb-4">
                           {member.skills.slice(0, 3).map(skill => (
-                            <span key={skill} className="bg-neutral-800 text-neutral-300 px-2 py-1 rounded text-xs">
+                            <span key={skill} className="bg-primary-500/10 text-primary-300 border border-primary-500/20 px-2 py-1 rounded-full text-xs font-medium">
                               {skill}
                             </span>
                           ))}
@@ -635,10 +635,10 @@ const TeamPage: React.FC = () => {
                             href={member.social.github} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-neutral-400 hover:text-white transition-colors"
+                            className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <Github className="h-4 w-4" />
+                            <Github className="h-4 w-4 drop-shadow-sm" />
                           </a>
                         )}
                         {member.social.linkedin && (
@@ -646,10 +646,10 @@ const TeamPage: React.FC = () => {
                             href={member.social.linkedin} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-neutral-400 hover:text-white transition-colors"
+                            className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <Linkedin className="h-4 w-4" />
+                            <Linkedin className="h-4 w-4 drop-shadow-sm" />
                           </a>
                         )}
                         {member.social.twitter && (
@@ -657,19 +657,19 @@ const TeamPage: React.FC = () => {
                             href={member.social.twitter} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-neutral-400 hover:text-white transition-colors"
+                            className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <Twitter className="h-4 w-4" />
+                            <Twitter className="h-4 w-4 drop-shadow-sm" />
                           </a>
                         )}
                         {member.social.email && (
                           <a 
                             href={`mailto:${member.social.email}`}
-                            className="text-neutral-400 hover:text-white transition-colors"
+                            className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            <Mail className="h-4 w-4" />
+                            <Mail className="h-4 w-4 drop-shadow-sm" />
                           </a>
                         )}
                       </div>
@@ -699,7 +699,7 @@ const TeamPage: React.FC = () => {
                     <p className="text-primary-400 font-medium mb-1">{selectedMember.role}</p>
                     <p className="text-neutral-400">{selectedMember.title}</p>
                     <div className="flex items-center gap-2 mt-2 text-sm text-neutral-400">
-                      <MapPin className="h-4 w-4" />
+                      <MapPin className="h-4 w-4 text-neutral-500" />
                       <span>{selectedMember.location}</span>
                     </div>
                   </div>
@@ -725,7 +725,7 @@ const TeamPage: React.FC = () => {
                   <h4 className="font-semibold text-white mb-3">Skills</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedMember.skills.map(skill => (
-                      <span key={skill} className="bg-neutral-800 text-neutral-300 px-3 py-1 rounded">
+                      <span key={skill} className="bg-primary-500/10 text-primary-300 border border-primary-500/20 px-3 py-1.5 rounded-full text-sm font-medium">
                         {skill}
                       </span>
                     ))}
@@ -737,7 +737,7 @@ const TeamPage: React.FC = () => {
                   <ul className="space-y-1">
                     {selectedMember.achievements.map((achievement, idx) => (
                       <li key={idx} className="flex items-start gap-2 text-neutral-300 text-sm">
-                        <Award className="h-4 w-4 text-warning-400 mt-0.5 flex-shrink-0" />
+                        <Award className="h-4 w-4 text-warning-400 mt-0.5 flex-shrink-0 drop-shadow-sm" />
                         <span>{achievement}</span>
                       </li>
                     ))}
@@ -747,7 +747,7 @@ const TeamPage: React.FC = () => {
 
               <div className="flex items-center justify-between pt-6 border-t border-neutral-800">
                 <div className="flex items-center gap-2 text-sm text-neutral-400">
-                  <Calendar className="h-4 w-4" />
+                  <Calendar className="h-4 w-4 text-neutral-500" />
                   <span>Joined {new Date(selectedMember.joinedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
                 </div>
 
@@ -757,9 +757,9 @@ const TeamPage: React.FC = () => {
                       href={selectedMember.social.github} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-neutral-400 hover:text-white transition-colors"
+                      className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                     >
-                      <Github className="h-5 w-5" />
+                      <Github className="h-5 w-5 drop-shadow-sm" />
                     </a>
                   )}
                   {selectedMember.social.linkedin && (
@@ -767,9 +767,9 @@ const TeamPage: React.FC = () => {
                       href={selectedMember.social.linkedin} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-neutral-400 hover:text-white transition-colors"
+                      className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                     >
-                      <Linkedin className="h-5 w-5" />
+                      <Linkedin className="h-5 w-5 drop-shadow-sm" />
                     </a>
                   )}
                   {selectedMember.social.twitter && (
@@ -777,17 +777,17 @@ const TeamPage: React.FC = () => {
                       href={selectedMember.social.twitter} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-neutral-400 hover:text-white transition-colors"
+                      className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                     >
-                      <Twitter className="h-5 w-5" />
+                      <Twitter className="h-5 w-5 drop-shadow-sm" />
                     </a>
                   )}
                   {selectedMember.social.email && (
                     <a 
                       href={`mailto:${selectedMember.social.email}`}
-                      className="text-neutral-400 hover:text-white transition-colors"
+                      className="text-neutral-500 hover:text-white transition-all duration-200 hover:scale-110"
                     >
-                      <Mail className="h-5 w-5" />
+                      <Mail className="h-5 w-5 drop-shadow-sm" />
                     </a>
                   )}
                 </div>

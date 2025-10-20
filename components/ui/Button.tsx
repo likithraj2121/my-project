@@ -48,7 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       ref={ref}
       className={clsx(
         // Base styles
-        'inline-flex items-center justify-center font-medium rounded-xl',
+        'group inline-flex items-center justify-center font-medium rounded-xl',
         'focus:outline-none focus:ring-2 focus:ring-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         'transition-all duration-200 ease-in-out',
@@ -95,7 +95,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       
       {/* Left icon */}
       {LeftIcon && !isLoading && (
-        <LeftIcon className={clsx('w-4 h-4', children && 'mr-2')} />
+        <LeftIcon className={clsx('w-4 h-4 transition-transform duration-200 group-hover:scale-105', children && 'mr-2')} />
       )}
       
       {/* Button content */}
@@ -103,7 +103,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       
       {/* Right icon */}
       {RightIcon && !isLoading && (
-        <RightIcon className={clsx('w-4 h-4', children && 'ml-2')} />
+        <RightIcon className={clsx('w-4 h-4 transition-transform duration-200 group-hover:scale-105', children && 'ml-2')} />
       )}
     </button>
   );

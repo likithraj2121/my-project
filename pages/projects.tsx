@@ -263,32 +263,34 @@ const ProjectsPage: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* Search and Filter */}
-            <div className="flex flex-col lg:flex-row gap-6 mb-12 max-w-4xl mx-auto">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
+            {/* Search Bar */}
+            <div className="mb-8 max-w-2xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400 transition-colors duration-200 peer-focus:text-primary-400" />
                 <input
                   type="text"
-                  placeholder="Search projects..."
+                  placeholder="Search projects, technologies, or descriptions..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input pl-10"
+                  className="peer w-full px-6 py-4 pl-12 pr-6 text-base bg-neutral-800/80 border border-neutral-600 text-white placeholder-neutral-400 rounded-full focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 focus:outline-none shadow-lg focus:shadow-xl hover:shadow-xl backdrop-blur-sm focus:bg-neutral-800"
                 />
               </div>
-              
-              <div className="flex gap-2 flex-wrap justify-center">
-                {categories.map((category) => (
-                  <Button
-                    key={category.key}
-                    variant={selectedCategory === category.key ? 'primary' : 'outline'}
-                    size="sm"
-                    leftIcon={category.icon}
-                    onClick={() => setSelectedCategory(category.key as 'all' | Project['category'])}
-                  >
-                    {category.label}
-                  </Button>
-                ))}
-              </div>
+            </div>
+            
+            {/* Category Filter Tags */}
+            <div className="flex gap-3 flex-wrap justify-center mb-12 max-w-4xl mx-auto">
+              {categories.map((category) => (
+                <Button
+                  key={category.key}
+                  variant={selectedCategory === category.key ? 'primary' : 'outline'}
+                  size="sm"
+                  leftIcon={category.icon}
+                  onClick={() => setSelectedCategory(category.key as 'all' | Project['category'])}
+                  className="transition-all duration-200 hover:scale-105"
+                >
+                  {category.label}
+                </Button>
+              ))}
             </div>
           </div>
         </section>
@@ -313,7 +315,7 @@ const ProjectsPage: React.FC = () => {
                           {project.category.toUpperCase().replace('-', '/')}
                         </span>
                         <div className="flex items-center gap-2">
-                          <Star className="h-4 w-4 text-warning-400" />
+                          <Star className="h-4 w-4 text-warning-400 drop-shadow-sm" />
                           <span className="text-sm text-neutral-400">{project.stats.stars || 0}</span>
                         </div>
                       </div>
@@ -337,7 +339,7 @@ const ProjectsPage: React.FC = () => {
                       <div className="space-y-3 mt-auto">
                         <div className="flex items-center justify-between text-sm text-neutral-400">
                           <div className="flex items-center gap-2">
-                            <Users className="h-4 w-4" />
+                            <Users className="h-4 w-4 text-neutral-500" />
                             <span>{project.authors.length} contributor{project.authors.length !== 1 ? 's' : ''}</span>
                           </div>
                           <span className={`font-medium ${getStatusColor(project.status)}`}>
@@ -401,9 +403,9 @@ const ProjectsPage: React.FC = () => {
                       <span className={`${getCategoryColor(project.category)} text-white px-2 py-1 rounded text-xs font-medium`}>
                         {project.category.toUpperCase().replace('-', '/')}
                       </span>
-                      {project.featured && (
-                        <Star className="h-4 w-4 text-warning-400" />
-                      )}
+                        {project.featured && (
+                          <Star className="h-4 w-4 text-warning-400 drop-shadow-sm animate-pulse" />
+                        )}
                     </div>
                     
                     <h3 className="font-semibold text-white mb-3 line-clamp-2">{project.title}</h3>
@@ -424,11 +426,11 @@ const ProjectsPage: React.FC = () => {
                     
                     <div className="flex items-center justify-between text-xs text-neutral-400 mb-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 text-neutral-500">
                           <Github className="h-3 w-3" />
                           <span>{project.stats.stars || 0}</span>
                         </div>
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 text-neutral-500">
                           <Eye className="h-3 w-3" />
                           <span>{project.stats.views || 0}</span>
                         </div>
@@ -461,7 +463,7 @@ const ProjectsPage: React.FC = () => {
             
             {filteredProjects.length === 0 && (
               <div className="text-center py-12">
-                <Code className="h-16 w-16 text-neutral-600 mx-auto mb-4" />
+                <Code className="h-16 w-16 text-neutral-600 mx-auto mb-4 opacity-50" />
                 <h3 className="text-xl font-semibold text-white mb-2">No projects found</h3>
                 <p className="text-neutral-400">Try adjusting your search or filter criteria</p>
               </div>
