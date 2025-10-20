@@ -1,6 +1,6 @@
-# DevCatalyst Website Replica
+# DevCatalyst Website
 
-A complete replica of the DevCatalyst website built using the FinFlow app's frontend UI styling and components.
+A complete replica of the DevCatalyst website built using modern UI
 
 ## Overview
 
@@ -53,11 +53,7 @@ Three-column layout with:
 - **Activities** - List of community activities with star icons
 
 ### 4. Meet Our Team
-Team member cards featuring:
-- **Divyansh Teja Edla** - President
-- **Dhruv Gannaram** - Vice President
-- **Parimitha** - Event Planner
-- **Hemaditya Kalakota** - Technical Lead
+Team member cards
 
 ### 5. Get Started in 3 Steps
 Step-by-step process:
@@ -218,59 +214,10 @@ interface ButtonProps {
 - **CSS Custom Properties** - Dynamic theming support
 - **Backdrop Filter** - Glassmorphism effects where supported
 
-## Deployment Options
-
-### Vercel (Recommended)
-```bash
-npm install -g vercel
-vercel
-```
-
-### Netlify
-```bash
-npm run build
-# Upload dist folder to Netlify
-```
-
-### Traditional Hosting
-```bash
-npm run build
-npm run start
-```
-
-## Content Customization
-
-### Team Members
-Update the `teamMembers` array in `pages/index.tsx`:
-```tsx
-const teamMembers = [
-  {
-    name: 'Your Name',
-    role: 'Your Role',
-    avatar: 'YN', // Initials
-    color: 'bg-primary-500' // Color class
-  }
-];
-```
-
-### Statistics
-Modify the `stats` array:
-```tsx
-const stats = [
-  { icon: Users, label: 'Members', value: '500+', color: 'text-primary-500' }
-];
-```
-
-### Contact Information
-Update contact details in the contact section:
-```tsx
-<p className="text-neutral-400 text-sm">your-email@domain.com</p>
-<p className="text-neutral-400 text-sm">Your Location</p>
-```
 
 ## License
 
-This project is created as a replica for educational purposes. The original DevCatalyst branding and content belong to their respective owners.
+This project is created for educational purposes. The original DevCatalyst branding and content belong to their respective owners.
 
 ## Contributing
 
