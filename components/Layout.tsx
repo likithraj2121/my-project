@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { ReadingProgressBar, BackToTopButton } from './ui/ScrollComponents';
 import { 
   Menu, 
   X,
@@ -44,13 +45,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950 text-neutral-200">
+      {/* Reading Progress Bar */}
+      <ReadingProgressBar />
+      
       {/* Header */}
       <header className="bg-neutral-900/80 backdrop-blur border-b border-neutral-800 sticky top-0 z-50 text-neutral-200">
         <div className="container-fluid">
           <div className="flex items-center justify-between h-16 w-full">
             {/* Logo and Brand */}
             <div className="flex items-center flex-shrink-0">
-              <div className="flex items-center space-x-3">
+              <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
                 <div className="relative w-10 h-10">
                   <Image
                     src="/logo.png"
@@ -65,7 +69,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   />
                 </div>
                 <span className="text-xl font-bold text-white">DevCatalyst</span>
-              </div>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
@@ -76,13 +80,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`group flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActivePath(item.href)
-                        ? 'bg-neutral-800 text-white'
-                        : 'text-neutral-300 hover:text-white hover:bg-neutral-800'
+                        ? 'bg-neutral-800 text-white shadow-sm'
+                        : 'text-neutral-300 hover:text-white hover:bg-neutral-800/80 hover:shadow-sm'
                     }`}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-4 w-4 transition-all duration-200 group-hover:scale-110" />
                     <span>{item.name}</span>
                   </Link>
                 );
@@ -95,9 +99,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               className="md:hidden p-2 text-neutral-300 hover:text-white hover:bg-neutral-800 rounded-lg transition-colors ml-auto"
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5 transition-transform duration-200 hover:rotate-90" />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 transition-transform duration-200 hover:scale-110" />
               )}
             </button>
           </div>
@@ -126,7 +130,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                           : 'text-neutral-300 hover:text-white hover:bg-neutral-800'
                       }`}
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-5 w-5 transition-all duration-200" />
                       <span>{item.name}</span>
                     </Link>
                   );
@@ -217,6 +221,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      {/* Back to Top Button */}
+      <BackToTopButton />
 
       {/* Click outside to close mobile menu */}
       {isMobileMenuOpen && (

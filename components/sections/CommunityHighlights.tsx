@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '../ui/Card';
 import OptimizedImage from '../ui/OptimizedImage';
-import { ScrollReveal } from '../animations/ScrollReveal';
+import { ScrollReveal } from '../ui/AdvancedEffects';
 
 interface CommunityHighlight {
   id: number;

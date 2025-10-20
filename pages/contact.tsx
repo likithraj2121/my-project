@@ -75,17 +75,17 @@ const ContactPage: React.FC = () => {
       color: 'hover:text-blue-600'
     },
     {
-      name: 'Discord',
-      url: 'https://discord.gg/devcatalyst',
+      name: 'WhatsApp Community',
+      url: 'https://chat.whatsapp.com/devcatalyst',
       icon: MessageCircle,
-      color: 'hover:text-indigo-400'
+      color: 'hover:text-green-400'
     }
   ];
 
   const faqItems = [
     {
       question: 'How do I join DevCatalyst?',
-      answer: 'Simply join our Discord server or attend any of our events. Membership is completely free!'
+      answer: 'Simply join our WhatsApp Community or attend any of our events. Membership is completely free!'
     },
     {
       question: 'What skill level do I need?',
@@ -97,7 +97,7 @@ const ContactPage: React.FC = () => {
     },
     {
       question: 'How can I contribute to projects?',
-      answer: 'Check our GitHub organization or join our project discussions on Discord to find contribution opportunities.'
+      answer: 'Check our GitHub organization or join our project discussions on WhatsApp Community to find contribution opportunities.'
     }
   ];
 
@@ -403,7 +403,7 @@ const ContactPage: React.FC = () => {
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" rightIcon={MessageCircle}>
-                    Join Discord Server
+                    Join WhatsApp Community
                   </Button>
                   <Button variant="outline" size="lg" rightIcon={ExternalLink}>
                     Follow on Social Media

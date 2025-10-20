@@ -4,6 +4,16 @@ import { usePerformanceMonitor, useLazyLoading, ResourceHints } from '../compone
 import ErrorBoundary from '../components/ErrorBoundary';
 import HeroSection from '../components/sections/HeroSection';
 import { 
+  ScrollReveal, 
+  TiltCard, 
+  HoverGlow, 
+  MagneticButton,
+  SkeletonCard,
+  PulseOnLoad,
+  StaggerContainer,
+  StaggerItem
+} from '../components/ui/AdvancedEffects';
+import { 
   Users, 
   Trophy,
   ArrowRight,
@@ -23,8 +33,6 @@ import Button from '../components/ui/Button';
 
 const DevCatalyst: React.FC = () => {
   const [mounted, setMounted] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [readingProgress, setReadingProgress] = useState(0);
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [notification, setNotification] = useState<{show: boolean, message: string, type: 'success' | 'error'}>({
     show: false,
@@ -51,15 +59,6 @@ const DevCatalyst: React.FC = () => {
       setIsPageLoading(false);
     }, 1500);
 
-    // Reading progress and scroll tracking
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      
-      setReadingProgress(progress);
-      setShowScrollTop(scrollTop > 300);
-    };
 
     // Keyboard shortcuts
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -76,20 +75,14 @@ const DevCatalyst: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('keydown', handleKeyPress);
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('keydown', handleKeyPress);
       clearTimeout(loadingTimer);
     };
   }, [notification.show]);
 
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   // Countdown timer for next event (example date)
   useEffect(() => {
@@ -146,18 +139,18 @@ const DevCatalyst: React.FC = () => {
   const getStartedSteps = [
     {
       step: '01',
-      title: 'Join the Community',
-      description: 'Hop into Discord/WhatsApp for updates and support.'
+      title: 'Explore Projects',
+      description: 'Browse our collection of innovative projects and technical achievements.'
     },
     {
       step: '02',
-      title: 'Attend a Workshop',
-      description: 'Pick a beginner-friendly session this month.'
+      title: 'Attend Events',
+      description: 'Join workshops, hackathons, and tech talks to enhance your skills.'
     },
     {
       step: '03',
-      title: 'Build a Project',
-      description: 'Team up and ship something real for your portfolio.'
+      title: 'Connect & Learn',
+      description: 'Network with fellow developers and access our technical resources.'
     }
   ];
 
@@ -189,16 +182,6 @@ const DevCatalyst: React.FC = () => {
         </motion.div>
       )}
 
-      {/* Reading Progress Bar */}
-      {mounted && !isPageLoading && (
-        <motion.div
-          className="fixed top-0 left-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-warning-500 z-50"
-          style={{ width: `${readingProgress}%` }}
-          initial={{ width: 0 }}
-          animate={{ width: `${readingProgress}%` }}
-          transition={{ duration: 0.1 }}
-        />
-      )}
 
       <div className="min-h-screen">
         {/* Hero Section */}
@@ -444,103 +427,105 @@ const DevCatalyst: React.FC = () => {
         {/* Meet Our Team */}
         <section className="py-20 bg-neutral-950/50">
           <div className="container-fluid">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
-            >
+            <ScrollReveal direction="up" className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Meet Our Team
               </h2>
-            </motion.div>
+            </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 30, scale: 0.8 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.15,
-                    type: "spring",
-                    bounce: 0.4
-                  }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -10,
-                    transition: { duration: 0.2 }
-                  }}
+            {!mounted ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <SkeletonCard key={index} />
+                ))}
+              </div>
+            ) : (
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto" staggerDelay={0.15}>
+                {teamMembers.map((member, index) => (
+                  <StaggerItem key={member.name}>
+                    <TiltCard className="h-full" glowOnHover>
+                      <HoverGlow>
+                        <Card variant="glass" hover className="text-center p-6 group cursor-pointer h-full">
+                          <PulseOnLoad delay={index * 0.1}>
+                            <motion.div 
+                              className={`w-20 h-20 ${member.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:shadow-lg transition-shadow duration-300`}
+                              whileHover={{ 
+                                scale: 1.1, 
+                                rotate: [0, -5, 5, 0],
+                                transition: { duration: 0.5 }
+                              }}
+                            >
+                              <motion.span 
+                                className="text-2xl font-bold text-white"
+                                whileHover={{ scale: 1.1 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                {member.avatar}
+                              </motion.span>
+                            </motion.div>
+                            <motion.h3 
+                              className="font-semibold text-white mb-2 group-hover:text-primary-300 transition-colors duration-300"
+                              whileHover={{ scale: 1.05 }}
+                            >
+                              {member.name}
+                            </motion.h3>
+                            <p className="text-neutral-400 text-sm group-hover:text-neutral-300 transition-colors duration-300">{member.role}</p>
+                          </PulseOnLoad>
+                        </Card>
+                      </HoverGlow>
+                    </TiltCard>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            )}
+
+            <ScrollReveal direction="up" className="text-center mt-12">
+              <HoverGlow>
+                <MagneticButton 
+                  onClick={() => window.location.href = '/team'}
+                  className="border border-neutral-600 hover:border-neutral-400 text-white px-8 py-4 rounded-xl transition-all duration-300 flex items-center gap-2 text-lg font-medium"
                 >
-                  <Card variant="glass" hover className="text-center p-6 group cursor-pointer">
-                    <motion.div 
-                      className={`w-20 h-20 ${member.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:shadow-lg transition-shadow duration-300`}
-                      whileHover={{ 
-                        scale: 1.1, 
-                        rotate: [0, -5, 5, 0],
-                        transition: { duration: 0.5 }
-                      }}
-                    >
-                      <motion.span 
-                        className="text-2xl font-bold text-white"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {member.avatar}
-                      </motion.span>
-                    </motion.div>
-                    <motion.h3 
-                      className="font-semibold text-white mb-2 group-hover:text-primary-300 transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {member.name}
-                    </motion.h3>
-                    <p className="text-neutral-400 text-sm group-hover:text-neutral-300 transition-colors duration-300">{member.role}</p>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Button variant="outline" size="lg" rightIcon={Users} onClick={() => window.location.href = '/team'}>
-                Meet Our Team
-              </Button>
+                  Meet Our Team
+                  <Users className="h-5 w-5" />
+                </MagneticButton>
+              </HoverGlow>
               <p className="text-neutral-400 text-sm mt-4">Connect to us on our Socials.</p>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Get Started in 3 Steps */}
         <section className="py-20">
           <div className="container-fluid">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
-            >
+            <ScrollReveal direction="up" className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
                 Get Started in 3 Steps
               </h2>
-            </motion.div>
+            </ScrollReveal>
 
-            <div className="grid lg:grid-cols-3 gap-8">
+            <StaggerContainer className="grid lg:grid-cols-3 gap-8" staggerDelay={0.2}>
               {getStartedSteps.map((step, index) => (
-                <motion.div
-                  key={step.step}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                >
-                  <Card variant="glass" hover className="p-8 text-center">
-                    <div className="text-4xl font-bold text-primary-500 mb-4">{step.step}</div>
-                    <h3 className="text-xl font-semibold text-white mb-4">{step.title}</h3>
-                    <p className="text-neutral-300">{step.description}</p>
-                  </Card>
-                </motion.div>
+                <StaggerItem key={step.step}>
+                  <TiltCard className="h-full" glowOnHover>
+                    <HoverGlow>
+                      <Card variant="glass" hover className="p-8 text-center h-full">
+                        <PulseOnLoad delay={index * 0.1}>
+                          <motion.div 
+                            className="text-4xl font-bold text-primary-500 mb-4"
+                            whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {step.step}
+                          </motion.div>
+                          <h3 className="text-xl font-semibold text-white mb-4">{step.title}</h3>
+                          <p className="text-neutral-300">{step.description}</p>
+                        </PulseOnLoad>
+                      </Card>
+                    </HoverGlow>
+                  </TiltCard>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
         </section>
 
@@ -688,59 +673,6 @@ const DevCatalyst: React.FC = () => {
           </div>
         </section>
 
-        {/* Enhanced Scroll to Top Button with Progress Ring */}
-        {mounted && !isPageLoading && showScrollTop && (
-          <motion.div
-            className="fixed bottom-8 right-8 z-[9999]"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ duration: 0.3, type: "spring" }}
-          >
-            <div className="relative">
-              {/* Progress ring */}
-              <svg className="absolute inset-0 w-14 h-14 transform -rotate-90 pointer-events-none">
-                <circle
-                  cx="28"
-                  cy="28"
-                  r="24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                  className="text-neutral-700"
-                />
-                <motion.circle
-                  cx="28"
-                  cy="28"
-                  r="24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                  className="text-primary-500"
-                  strokeLinecap="round"
-                  style={{
-                    strokeDasharray: `${2 * Math.PI * 24}`,
-                    strokeDashoffset: `${2 * Math.PI * 24 * (1 - readingProgress / 100)}`
-                  }}
-                  transition={{ duration: 0.1 }}
-                />
-              </svg>
-              
-              <button
-                className="relative w-14 h-14 rounded-full bg-primary-500 hover:bg-primary-600 text-white shadow-lg flex items-center justify-center transition-all duration-300 cursor-pointer z-10"
-                onClick={scrollToTop}
-                title="Back to top"
-              >
-                <motion.div
-                  animate={{ y: [0, -2, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <ArrowRight className="h-5 w-5 rotate-[-90deg]" />
-                </motion.div>
-              </button>
-            </div>
-          </motion.div>
-        )}
 
 
         {/* Notification Toast */}

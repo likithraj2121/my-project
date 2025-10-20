@@ -6,13 +6,14 @@ import {
   MagneticButton, 
   ScrollReveal, 
   TiltCard, 
-  GlowingBorder,
-  StaggeredText,
-  ScrollCounter,
-  MorphingShape,
-  FloatingElements
-} from '../ui/AdvancedAnimations';
+  HoverGlow,
+  AnimatedCounter,
+  ParticleBackground,
+  StaggerContainer,
+  StaggerItem
+} from '../ui/AdvancedEffects';
 import { ClientOnly } from '../../hooks/useClientSide';
+import ClientWrapper from '../ui/ClientWrapper';
 import { Card, CardContent } from '../ui/Card';
 import Button from '../ui/Button';
 import { useErrorHandler } from '../ErrorBoundary';
@@ -59,17 +60,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ mounted }) => {
 
   return (
     <section className="relative py-20 lg:py-32 overflow-hidden">
-      {/* Floating Elements Background */}
-      <FloatingElements count={8} className="opacity-30" />
-      
-      {/* Morphing Shape */}
-      <div className="absolute top-10 right-10 opacity-20">
-        <MorphingShape />
-      </div>
+      {/* Advanced Particle Background */}
+      <ClientWrapper>
+        <ParticleBackground count={50} className="opacity-60" />
+      </ClientWrapper>
       
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/20 via-transparent to-secondary-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/30 via-purple-900/20 to-secondary-900/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.1)_0%,transparent_60%)]" />
         
         {/* Enhanced Floating Code Elements */}
         <motion.div 
@@ -148,8 +147,47 @@ const HeroSection: React.FC<HeroSectionProps> = ({ mounted }) => {
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }}
         />
         
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        {/* Enhanced Grid Pattern with Animation */}
+        <motion.div 
+          className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.05)_1px,transparent_1px)] bg-[size:50px_50px]"
+          animate={{ 
+            backgroundPosition: ['0px 0px', '50px 50px', '0px 0px'],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        
+        {/* Additional floating elements */}
+        <motion.div 
+          className="absolute top-1/4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary-400/60 rounded-full"
+          animate={{ 
+            y: [0, -100, 0],
+            x: [0, 50, -30, 0],
+            scale: [1, 0.5, 1.2, 1],
+            opacity: [0.6, 1, 0.4, 0.6]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-secondary-400/70 rounded-full"
+          animate={{ 
+            y: [0, 80, -40, 0],
+            x: [0, -60, 20, 0],
+            scale: [1, 1.5, 0.8, 1],
+            opacity: [0.7, 0.3, 1, 0.7]
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div 
+          className="absolute top-3/4 left-1/4 w-2 h-2 bg-warning-400/80 rounded-full"
+          animate={{ 
+            y: [0, -120, 60, 0],
+            x: [0, 40, -50, 0],
+            scale: [1, 2, 0.3, 1],
+            opacity: [0.8, 0.4, 0.9, 0.8]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
       </div>
       
       <div className="container-fluid relative z-10">
@@ -195,11 +233,34 @@ const HeroSection: React.FC<HeroSectionProps> = ({ mounted }) => {
 
           {/* Main Heading with Enhanced Gradient and Loading Effect */}
           <motion.h1 
-            className="text-5xl lg:text-7xl font-bold mb-6"
+            className="text-5xl lg:text-8xl font-bold mb-8 relative"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
+            {/* Floating accent elements around heading */}
+            <motion.div 
+              className="absolute -top-4 -left-4 w-8 h-8 border-2 border-primary-400/40 rounded rotate-45"
+              animate={{ rotate: [45, 225, 45], scale: [1, 1.2, 1] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div 
+              className="absolute -top-2 -right-6 w-6 h-6 bg-secondary-400/30 rounded-full"
+              animate={{ 
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 0.8, 0.3],
+                y: [0, -10, 0]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+            <motion.div 
+              className="absolute -bottom-3 left-1/4 w-4 h-1 bg-warning-400/50 rounded-full"
+              animate={{ 
+                scaleX: [1, 2, 1],
+                opacity: [0.5, 1, 0.5]
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            />
             <motion.span 
               className="bg-gradient-to-r from-primary-400 via-secondary-400 via-warning-400 to-primary-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_200%] inline-block"
               animate={{ 
@@ -230,23 +291,53 @@ const HeroSection: React.FC<HeroSectionProps> = ({ mounted }) => {
           </motion.h1>
 
           <motion.div 
-            className="text-xl lg:text-2xl text-neutral-300 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl lg:text-2xl text-neutral-300 mb-10 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <div className="relative inline-block">
-              Fueling the Next Generation of Developers
-              <div className="absolute -bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent opacity-50" />
+              <span className="relative z-10">Fueling the Next Generation of Developers</span>
+              <motion.div 
+                className="absolute -bottom-3 left-0 w-full h-1 bg-gradient-to-r from-primary-400 via-secondary-400 to-warning-400 rounded-full"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 1.5, delay: 1 }}
+              />
+              {/* Sparkle effects */}
+              <motion.div 
+                className="absolute -top-2 left-1/4 w-1 h-1 bg-primary-400 rounded-full"
+                animate={{ 
+                  scale: [0, 1, 0],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+              />
+              <motion.div 
+                className="absolute -top-1 right-1/3 w-1 h-1 bg-secondary-400 rounded-full"
+                animate={{ 
+                  scale: [0, 1, 0],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 3 }}
+              />
             </div>
+            <motion.p 
+              className="text-base lg:text-lg text-neutral-400 mt-4 max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+            >
+              Join a vibrant community of innovators, builders, and learners shaping the future of technology
+            </motion.p>
           </motion.div>
 
           {/* Stats Cards with Advanced Animations */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12" staggerDelay={0.2}>
             {stats.map((stat, index) => (
-              <ScrollReveal key={stat.label} delay={index * 0.2}>
-                <TiltCard className="h-full">
-                  <GlowingBorder intensity={0.3}>
+              <StaggerItem key={stat.label}>
+                <TiltCard className="h-full" glowOnHover>
+                  <HoverGlow>
                     <Card variant="glass" className="text-center group cursor-pointer p-6 h-full">
                       <CardContent className="p-0">
                         <motion.div
@@ -265,7 +356,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ mounted }) => {
                         </motion.div>
                         
                         <div className="text-3xl font-bold text-white mb-2">
-                          <ScrollCounter 
+                          <AnimatedCounter 
                             from={0} 
                             to={parseInt(stat.value)} 
                             suffix={stat.value.includes('+') ? '+' : ''}
@@ -273,65 +364,83 @@ const HeroSection: React.FC<HeroSectionProps> = ({ mounted }) => {
                           />
                         </div>
                         
-                        <StaggeredText 
-                          text={stat.label}
-                          className="text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300"
-                          delay={0.5 + index * 0.2}
-                        />
+                        <div className="text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300">
+                          {stat.label}
+                        </div>
                       </CardContent>
                     </Card>
-                  </GlowingBorder>
+                  </HoverGlow>
                 </TiltCard>
-              </ScrollReveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
-          {/* CTA Buttons with Magnetic Effect */}
+          {/* Enhanced CTA Section */}
           <ScrollReveal direction="up" delay={0.8}>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <ClientOnly 
-                fallback={
-                  <GlowingBorder intensity={0.4} glowColor="#6366f1">
-                    <Button size="lg" rightIcon={Users} onClick={() => handleExternalLink('https://discord.gg/devcatalyst')} className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl transition-all duration-300">
+            <div className="relative">
+              {/* CTA Buttons with Enhanced Effects */}
+              <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+                <ClientOnly 
+                  fallback={
+                    <Button size="lg" rightIcon={Users} onClick={() => handleExternalLink('https://chat.whatsapp.com/devcatalyst')} className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl transition-all duration-300">
                       Explore Our Community
                     </Button>
-                  </GlowingBorder>
-                }
-              >
-                <MagneticButton
-                  className="group"
-                  strength={0.15}
-                  onClick={() => handleExternalLink('https://discord.gg/devcatalyst')}
+                  }
                 >
-                  <GlowingBorder intensity={0.4} glowColor="#6366f1">
-                    <Button size="lg" rightIcon={Users} className="relative z-10 bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-xl transition-all duration-300 group-hover:scale-105">
-                      Explore Our Community
-                    </Button>
-                  </GlowingBorder>
-                </MagneticButton>
-              </ClientOnly>
-              
-              <ClientOnly 
-                fallback={
-                  <GlowingBorder intensity={0.4} glowColor="#8b5cf6">
+                  <HoverGlow>
+                    <MagneticButton
+                      className="group relative bg-gradient-to-r from-primary-500 via-primary-600 to-primary-500 hover:from-primary-600 hover:via-primary-700 hover:to-primary-600 text-white px-10 py-5 rounded-2xl transition-all duration-300 flex items-center gap-3 text-lg font-semibold shadow-2xl hover:shadow-primary-500/25 overflow-hidden"
+                      strength={0.2}
+                      onClick={() => handleExternalLink('https://chat.whatsapp.com/devcatalyst')}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                      <span className="relative z-10">Explore Our Community</span>
+                      <Users className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+                    </MagneticButton>
+                  </HoverGlow>
+                </ClientOnly>
+                
+                <ClientOnly 
+                  fallback={
                     <Button variant="secondary" size="lg" rightIcon={Calendar} onClick={() => handleNavigation('/events')} className="bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-4 rounded-xl transition-all duration-300">
                       See Upcoming Events
                     </Button>
-                  </GlowingBorder>
-                }
-              >
-                <MagneticButton
-                  className="group"
-                  strength={0.15}
-                  onClick={() => handleNavigation('/events')}
+                  }
                 >
-                  <GlowingBorder intensity={0.4} glowColor="#8b5cf6">
-                    <Button variant="secondary" size="lg" rightIcon={Calendar} className="relative z-10 bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-4 rounded-xl transition-all duration-300 group-hover:scale-105">
-                      See Upcoming Events
-                    </Button>
-                  </GlowingBorder>
-                </MagneticButton>
-              </ClientOnly>
+                  <HoverGlow>
+                    <MagneticButton
+                      className="group relative bg-gradient-to-r from-secondary-500 via-secondary-600 to-secondary-500 hover:from-secondary-600 hover:via-secondary-700 hover:to-secondary-600 text-white px-10 py-5 rounded-2xl transition-all duration-300 flex items-center gap-3 text-lg font-semibold shadow-2xl hover:shadow-secondary-500/25 overflow-hidden"
+                      strength={0.2}
+                      onClick={() => handleNavigation('/events')}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                      <span className="relative z-10">See Upcoming Events</span>
+                      <Calendar className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+                    </MagneticButton>
+                  </HoverGlow>
+                </ClientOnly>
+              </div>
+              
+              {/* Trust indicators */}
+              <motion.div 
+                className="flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-400"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.5 }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <span>Active Community</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <span>Free to Join</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+                  <span>Beginner Friendly</span>
+                </div>
+              </motion.div>
             </div>
           </ScrollReveal>
         </motion.div>
